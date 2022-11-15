@@ -347,7 +347,27 @@ angular.module('cerebro').controller('CatController', ['$scope',
           }
       );
     };
-
+    $scope.escompare = function(line) {
+      var sortdata = line[$scope.sortCol];
+      var part1 = sortdata.substring(0, sortdata.length-2);
+      var part2 = sortdata.substring(sortdata.length-2);
+      if (isNaN(part1)) {
+        return sortdata;
+      } else {
+        if (part2 == 'kb') {
+          return +part1 * 1024;
+        } else if (part2 == 'mb') {
+          return +part1 * 1024 * 1024;
+        } else if (part2 == 'gb') {
+          return +part1 * 1024 * 1024 * 1024;
+        } else if (part2 == 'tb') {
+          return +part1 * 1024 * 1024 * 1024 * 1024;
+        } else {
+          return sortdata;
+        }
+      }
+      return sortdata;
+    };
     $scope.sort = function(col) {
       if ($scope.sortCol === col) {
         $scope.sortAsc = !$scope.sortAsc;
